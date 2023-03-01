@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Airtime widget iframe example</title>
+    <title>Pay Widget example</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #e5e5f7;
-            background-image:  repeating-linear-gradient(45deg, #c1c1c1 25%, transparent 25%, transparent 75%, #c1c1c1 75%, #c1c1c1), repeating-linear-gradient(45deg, #c1c1c1 25%, #e5e5f7 25%, #e5e5f7 75%, #c1c1c1 75%, #c1c1c1);
-            background-position: 0 0, 10px 10px;
+            background-color: #efefef;
             background-size: 20px 20px;
             padding-top: 20px;
         }
+
+        .pay-with-fonbnk {
+            display: block;
+            /* position: absolute; */
+            margin: 200px auto;
+            padding: 14px 30px;
+            background-color: rgb(52, 133, 70);
+            color: #fff;
+            border: 0;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+        }
+
+        .display-none {
+            display: none;
+        }
+
         iframe {
             display: block;
             margin: 0 auto;
@@ -20,7 +38,23 @@
         }
     </style>
 </head>
+
 <body>
-<iframe src="https://pay.fonbnk.com" width="450" height="770" ></iframe>
+    <button id="button" class="pay-with-fonbnk" onclick="displayIframe()">Pay with Fonbnk</button>
+    <div id="iframe-display"></div>
+    <script>
+        function displayIframe() {
+            let payWidgetLink = "https://pay.fonbnk.com";
+
+            const address = '0x3e459613b84f11582D96E2E04eA49B64F9a77870';
+            const network = 'POLYGON';
+            // Adding network and address to the pay widget link to skip the first step
+            payWidgetLink += `?address=${address}&network=${network}`;
+
+            document.getElementById("button").classList.add("display-none");
+            document.getElementById("iframe-display").innerHTML = `<iframe src=${payWidgetLink} width="450" height="770" ></iframe>`;
+        }
+    </script>
 </body>
+
 </html>
